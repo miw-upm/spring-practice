@@ -1,6 +1,5 @@
 package es.upm.spring_practice.adapters.jpa.shop.persistence;
 
-import es.upm.spring_practice.adapters.jpa.shop.daos.ArticleRepository;
 import es.upm.spring_practice.adapters.jpa.shop.daos.ShoppingCartRepository;
 import es.upm.spring_practice.adapters.jpa.shop.entities.ShoppingCartEntity;
 import es.upm.spring_practice.domain.exceptions.NotFoundException;
@@ -16,12 +15,9 @@ public class ShoppingCartPersistenceJpa implements ShoppingCartPersistence {
 
     private final ShoppingCartRepository shoppingCartRepository;
 
-    private final ArticleRepository articleRepository;
-
     @Autowired
-    public ShoppingCartPersistenceJpa(ShoppingCartRepository shoppingCartRepository, ArticleRepository articleRepository) {
+    public ShoppingCartPersistenceJpa(ShoppingCartRepository shoppingCartRepository) {
         this.shoppingCartRepository = shoppingCartRepository;
-        this.articleRepository = articleRepository;
     }
 
 

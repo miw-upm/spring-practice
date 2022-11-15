@@ -4,12 +4,10 @@
 
 ### Estado del código
 [![DevOps](https://github.com/miw-upm/apaw-practice/actions/workflows/test-sonar.yml/badge.svg)](https://github.com/miw-upm/apaw-practice/actions/workflows/test-sonar.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-practice&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-practice)
-[![BCH compliance](https://bettercodehub.com/edge/badge/miw-upm/apaw-practice?branch=develop)](https://bettercodehub.com/results/miw-upm/apaw-practice)
-[![Heroku broken](https://apaw-practice.herokuapp.com/system/version-badge)](https://apaw-practice.herokuapp.com/swagger-ui.html)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=miw-upm_spring-practice&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=miw-upm_spring-practice)[![Heroku broken](https://apaw-practice.herokuapp.com/system/version-badge)](https://spring-practice.herokuapp.com/swagger-ui.html)
 
 ### Tecnologías necesarias
-`Java` `Maven` `GitHub` `Sonarcloud` `Spring-boot` `OpenAPI`
+`Java` `Maven` `GitHub` `Sonarcloud` `Spring-boot` `Heroku` `OpenAPI`
 
 ### :gear: Instalación del proyecto
 1. Clonar el repositorio en tu equipo, **mediante consola**:

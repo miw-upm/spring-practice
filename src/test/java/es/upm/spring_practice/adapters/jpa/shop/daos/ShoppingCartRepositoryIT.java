@@ -1,7 +1,6 @@
 package es.upm.spring_practice.adapters.jpa.shop.daos;
 
 import es.upm.spring_practice.TestConfig;
-import es.upm.spring_practice.adapters.jpa.shop.ShopSeederService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,9 +14,6 @@ class ShoppingCartRepositoryIT {
 
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
-
-    @Autowired
-    private ShopSeederService shopSeederService;
 
     @Test
     void testCreateAndRead() {
@@ -35,10 +31,5 @@ class ShoppingCartRepositoryIT {
                 ));
     }
 
-    @Test
-    void testDeleteAll() {
-        shopSeederService.deleteAll();
-        shopSeederService.seedDatabase();
-    }
 }
 
