@@ -1,0 +1,44 @@
+package es.upm.spring_practice.adapters.jpa.shop.daos;
+
+import es.upm.spring_practice.TestConfig;
+import es.upm.spring_practice.adapters.jpa.shop.ShopSeederService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@TestConfig
+class ShoppingCartRepositoryIT {
+
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
+
+    @Autowired
+    private ShopSeederService shopSeederService;
+
+    @Test
+    void testCreateAndRead() {
+        assertTrue(this.shoppingCartRepository.findAll().stream()
+                .anyMatch(cart ->
+                        "user1".equals(cart.getUser()) &&
+                                "address 1".equals(cart.getAddress()) &&
+                                cart.getId() != null &&
+                                cart.getCreationDate() != null &&
+                                cart.getCreationDate().isBefore(LocalDateTime.now()) &&
+                                2 == cart.getArticleItemEntities().size() &&
+                                "84001".equals(cart.getArticleItemEntities().get(0).getArticleEntity().getBarcode()) &&
+                                1 == cart.getArticleItemEntities().get(0).getAmount() &&
+                                0 == BigDecimal.ZERO.compareTo(cart.getArticleItemEntities().get(0).getDiscount())
+                ));
+    }
+
+    @Test
+    void testDeleteAll() {
+        shopSeederService.deleteAll();
+        shopSeederService.seedDatabase();
+    }
+}
+
