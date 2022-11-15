@@ -1,7 +1,6 @@
 package es.upm.spring_practice.adapters.jpa.shop.persistence;
 
 import es.upm.spring_practice.TestConfig;
-import es.upm.spring_practice.adapters.jpa.shop.ShopSeederService;
 import es.upm.spring_practice.domain.models.shop.ShoppingCart;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,6 @@ class ShoppingCartPersistenceJpaIT {
 
     @Autowired
     private ShoppingCartPersistenceJpa shoppingCartPersistenceJpaDb;
-
-    @Autowired
-    private ShopSeederService shopSeederService;
 
     @Test
     void testReadById() {

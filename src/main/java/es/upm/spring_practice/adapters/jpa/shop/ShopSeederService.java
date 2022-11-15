@@ -10,24 +10,31 @@ import es.upm.spring_practice.adapters.jpa.shop.entities.TagEntity;
 import es.upm.spring_practice.domain.models.shop.Article;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-@Service
+@Service //@Profile("dev")
 public class ShopSeederService {
 
-    @Autowired
     private ArticleRepository articleRepository;
-    @Autowired
+
     private ShoppingCartRepository shoppingCartRepository;
-    @Autowired
+
     private TagRepository tagRepository;
 
+    @Autowired
+    public ShopSeederService(ArticleRepository articleRepository, ShoppingCartRepository shoppingCartRepository, TagRepository tagRepository) {
+        this.articleRepository = articleRepository;
+        this.shoppingCartRepository = shoppingCartRepository;
+        this.tagRepository = tagRepository;
+    }
 
     public void seedDatabase() {
+        this.deleteAll();
         LogManager.getLogger(this.getClass()).warn("------- Shop Initial Load -----------");
         ArticleEntity[] articles = {
                 new ArticleEntity(new Article("84001", "art 001", new BigDecimal("1.23"), "prov 1")),
@@ -58,6 +65,7 @@ public class ShopSeederService {
     }
 
     public void deleteAll() {
+        LogManager.getLogger(this.getClass()).warn("------- Shop delete all-----------");
         this.tagRepository.deleteAll();
         this.shoppingCartRepository.deleteAll();
         this.articleRepository.deleteAll();
