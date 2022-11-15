@@ -7,6 +7,7 @@ import es.upm.spring_practice.domain.services.shop.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
@@ -26,7 +27,7 @@ public class ArticleResource {
     }
 
     @PostMapping
-    public Article create(@RequestBody Article article) {
+    public Article create(@Valid @RequestBody Article article) {
         article.doDefault();
         return this.articleService.create(article);
     }
