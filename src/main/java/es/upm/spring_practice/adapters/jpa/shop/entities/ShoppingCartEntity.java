@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Entity
 public class ShoppingCartEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private LocalDateTime creationDate;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

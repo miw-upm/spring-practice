@@ -34,7 +34,6 @@ public class ShopSeederService {
     }
 
     public void seedDatabase() {
-        this.deleteAll();
         LogManager.getLogger(this.getClass()).warn("------- Shop Initial Load -----------");
         ArticleEntity[] articles = {
                 new ArticleEntity(new Article("84001", "art 001", new BigDecimal("1.23"), "prov 1")),

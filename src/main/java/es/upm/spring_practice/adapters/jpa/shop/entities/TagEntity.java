@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Entity
 public class TagEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(unique = true, nullable = false)
     private String name;
