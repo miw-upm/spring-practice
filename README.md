@@ -9,7 +9,7 @@
 [![Heroku broken](https://apaw-practice.herokuapp.com/system/version-badge)](https://apaw-practice.herokuapp.com/swagger-ui.html)
 
 ### Tecnologías necesarias
-`Java` `Maven` `GitHub` `Travis-ci` `Sonarcloud` `Better Code Hub` `Slack` `Spring-boot` `Heroku` `OpenAPI`
+`Java` `Maven` `GitHub` `Sonarcloud` `Spring-boot` `OpenAPI`
 
 ### :gear: Instalación del proyecto
 1. Clonar el repositorio en tu equipo, **mediante consola**:
