@@ -12,10 +12,9 @@ import java.util.Optional;
 public interface ArticleRepository extends JpaRepository<ArticleEntity, Integer> {
     Optional<ArticleEntity> findByBarcode(String barcode);
 
-    /**
      @Query("select a from ArticleEntity a where " +
      "(?1 is null or a.provider like concat('%',?1,'%')) and " +
      "(?2 is null or a.price>?2)")
      List<ArticleEntity> findByProviderAndPriceGreaterThan(String provider, BigDecimal price);
-*/
+
 }

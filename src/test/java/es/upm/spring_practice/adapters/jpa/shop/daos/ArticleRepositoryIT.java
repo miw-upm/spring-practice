@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestConfig
 class ArticleRepositoryIT {
@@ -23,6 +25,16 @@ class ArticleRepositoryIT {
         assertEquals("art 003", article.getSummary());
         assertEquals(0, new BigDecimal("12.13").compareTo(article.getPrice()));
         assertEquals("prov 3", article.getProvider());
+    }
+
+    @Test
+    void testFindByProviderAndPriceGreaterThan() {
+        List<ArticleEntity> articles = this.articleRepository.findByProviderAndPriceGreaterThan("prov 1", null);
+        assertFalse(articles.isEmpty());
+        assertTrue(articles.stream()
+                .map(ArticleEntity::getBarcode)
+                .collect(Collectors.toList())
+                .containsAll(Arrays.asList("84001")));
     }
 
 }
