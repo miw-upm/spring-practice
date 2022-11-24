@@ -1,4 +1,4 @@
-package es.upm.spring_practice;
+package es.upm.spring_practice.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.CorsRegistry;

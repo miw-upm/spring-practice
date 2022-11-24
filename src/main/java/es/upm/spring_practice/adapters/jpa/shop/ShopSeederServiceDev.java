@@ -10,7 +10,6 @@ import es.upm.spring_practice.adapters.jpa.shop.entities.TagEntity;
 import es.upm.spring_practice.domain.models.shop.Article;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,16 +17,16 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service //@Profile("dev")
-public class ShopSeederService {
+public class ShopSeederServiceDev {
 
-    private ArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
 
-    private ShoppingCartRepository shoppingCartRepository;
+    private final ShoppingCartRepository shoppingCartRepository;
 
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
     @Autowired
-    public ShopSeederService(ArticleRepository articleRepository, ShoppingCartRepository shoppingCartRepository, TagRepository tagRepository) {
+    public ShopSeederServiceDev(ArticleRepository articleRepository, ShoppingCartRepository shoppingCartRepository, TagRepository tagRepository) {
         this.articleRepository = articleRepository;
         this.shoppingCartRepository = shoppingCartRepository;
         this.tagRepository = tagRepository;
