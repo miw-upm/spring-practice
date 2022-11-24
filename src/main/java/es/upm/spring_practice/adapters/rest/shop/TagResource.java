@@ -1,15 +1,18 @@
 package es.upm.spring_practice.adapters.rest.shop;
 
 import es.upm.spring_practice.adapters.rest.LexicalAnalyzer;
+import es.upm.spring_practice.adapters.rest.Rest;
 import es.upm.spring_practice.domain.exceptions.BadRequestException;
 import es.upm.spring_practice.domain.models.shop.Tag;
 import es.upm.spring_practice.domain.services.shop.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.stream.Stream;
 
-@RestController
+@Rest
 @RequestMapping(TagResource.TAGS)
 public class TagResource {
     static final String TAGS = "/shop/tags";
@@ -25,20 +28,21 @@ public class TagResource {
     }
 
     @GetMapping(NAME_ID)
-    public Tag read(@PathVariable String name) {
-        return Tag.ofArticleBarcode(this.tagService.read(name));
+    public Mono<Tag> read(@PathVariable String name) {
+        return Mono.just(Tag.ofArticleBarcode(this.tagService.read(name)));
     }
 
     @DeleteMapping(NAME_ID)
-    public void delete(@PathVariable String name) {
+    public Mono<Void> delete(@PathVariable String name) {
         this.tagService.delete(name);
+        return Mono.empty();
     }
 
     @GetMapping(SEARCH)
-    public Stream<Tag> findByArticlesInShoppingCarts(@RequestParam String q) {
+    public Flux<Tag> findByArticlesInShoppingCarts(@RequestParam String q) {
         if (!"in".equals(new LexicalAnalyzer().extractWithAssure(q, "shopping-carts"))) {
             throw new BadRequestException("q incorrect, expected in");
         }
-        return this.tagService.findByArticlesInShoppingCarts();
+        return Flux.fromStream(this.tagService.findByArticlesInShoppingCarts());
     }
 }

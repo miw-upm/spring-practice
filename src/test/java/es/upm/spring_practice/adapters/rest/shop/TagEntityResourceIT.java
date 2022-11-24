@@ -1,5 +1,6 @@
 package es.upm.spring_practice.adapters.rest.shop;
 
+import es.upm.spring_practice.adapters.rest.RestClientTestService;
 import es.upm.spring_practice.adapters.rest.RestTestConfig;
 import es.upm.spring_practice.domain.models.shop.Tag;
 import org.junit.jupiter.api.Assertions;
@@ -16,13 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RestTestConfig
 class TagEntityResourceIT {
-
     @Autowired
     private WebTestClient webTestClient;
+    @Autowired
+    private RestClientTestService restClientTestService;
 
     @Test
     void testRead() {
-        this.webTestClient
+        this.restClientTestService.loginAdmin(webTestClient)
                 .get()
                 .uri(TAGS + NAME_ID, "tag3")
                 .exchange()
@@ -39,7 +41,7 @@ class TagEntityResourceIT {
 
     @Test
     void testReadNotFound() {
-        this.webTestClient
+        this.restClientTestService.loginAdmin(webTestClient)
                 .get()
                 .uri(TAGS + NAME_ID, "kk")
                 .exchange()
@@ -48,7 +50,7 @@ class TagEntityResourceIT {
 
     @Test
     void testDelete() {
-        this.webTestClient
+        this.restClientTestService.loginAdmin(webTestClient)
                 .delete()
                 .uri(TAGS + NAME_ID, "kk")
                 .exchange()
@@ -57,7 +59,7 @@ class TagEntityResourceIT {
 
     @Test
     void testFindByArticlesInShoppingCarts() {
-        this.webTestClient
+        this.restClientTestService.loginAdmin(webTestClient)
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path(TAGS + SEARCH)
@@ -78,7 +80,7 @@ class TagEntityResourceIT {
 
     @Test
     void testFindByArticlesInShoppingCartsBadRequest() {
-        this.webTestClient
+        this.restClientTestService.loginAdmin(webTestClient)
                 .get()
                 .uri(uriBuilder ->
                         uriBuilder.path(TAGS + SEARCH)

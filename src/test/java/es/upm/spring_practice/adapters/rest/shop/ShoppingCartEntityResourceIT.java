@@ -1,5 +1,6 @@
 package es.upm.spring_practice.adapters.rest.shop;
 
+import es.upm.spring_practice.adapters.rest.RestClientTestService;
 import es.upm.spring_practice.adapters.rest.RestTestConfig;
 import es.upm.spring_practice.domain.models.shop.Article;
 import es.upm.spring_practice.domain.models.shop.ArticleItem;
@@ -18,9 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RestTestConfig
 class ShoppingCartEntityResourceIT {
-
     @Autowired
     private WebTestClient webTestClient;
+    @Autowired
+    private RestClientTestService restClientTestService;
 
     @Test
     void testUpdate() {
@@ -30,7 +32,7 @@ class ShoppingCartEntityResourceIT {
                 new ArticleItem(article1, 2, BigDecimal.ONE),
                 new ArticleItem(article2, 3, BigDecimal.TEN)
         );
-        this.webTestClient
+        this.restClientTestService.loginAdmin(webTestClient)
                 .put()
                 .uri(ShoppingCartResource.SHOPPING_CARTS + ShoppingCartResource.ID_ID + ShoppingCartResource.ARTICLE_ITEMS, "0")
                 .body(BodyInserters.fromValue(articleItemArray))
@@ -40,7 +42,7 @@ class ShoppingCartEntityResourceIT {
 
     @Test
     void testFindByPriceGreaterThan() {
-        this.webTestClient
+        this.restClientTestService.loginAdmin(webTestClient)
                 .get()
                 .uri(uriBuilder ->
                         uriBuilder.path(ShoppingCartResource.SHOPPING_CARTS + ShoppingCartResource.SEARCH)
