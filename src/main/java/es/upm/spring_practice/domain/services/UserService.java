@@ -5,7 +5,7 @@ import es.upm.spring_practice.domain.exceptions.ForbiddenException;
 import es.upm.spring_practice.domain.exceptions.NotFoundException;
 import es.upm.spring_practice.domain.models.Role;
 import es.upm.spring_practice.domain.models.User;
-import es.upm.spring_practice.domain.persistence_ports.UserPersistence;
+import es.upm.spring_practice.domain.ports.UserPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

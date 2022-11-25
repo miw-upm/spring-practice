@@ -1,8 +1,8 @@
 package es.upm.spring_practice.domain.services.shop;
 
 import es.upm.spring_practice.domain.models.shop.ShoppingCart;
-import es.upm.spring_practice.domain.persistence_ports.shop.ArticlePersistence;
-import es.upm.spring_practice.domain.persistence_ports.shop.ShoppingCartPersistence;
+import es.upm.spring_practice.domain.ports.shop.ArticlePersistence;
+import es.upm.spring_practice.domain.ports.shop.ShoppingCartPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

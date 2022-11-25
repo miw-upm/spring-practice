@@ -5,7 +5,7 @@ import es.upm.spring_practice.adapters.jpa.shop.daos.ArticleRepository;
 import es.upm.spring_practice.adapters.jpa.shop.entities.ArticleEntity;
 import es.upm.spring_practice.domain.exceptions.NotFoundException;
 import es.upm.spring_practice.domain.models.shop.Article;
-import es.upm.spring_practice.domain.persistence_ports.shop.ArticlePersistence;
+import es.upm.spring_practice.domain.ports.shop.ArticlePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -4,7 +4,7 @@ import es.upm.spring_practice.adapters.jpa.shop.daos.TagRepository;
 import es.upm.spring_practice.adapters.jpa.shop.entities.TagEntity;
 import es.upm.spring_practice.domain.exceptions.NotFoundException;
 import es.upm.spring_practice.domain.models.shop.Tag;
-import es.upm.spring_practice.domain.persistence_ports.shop.TagPersistence;
+import es.upm.spring_practice.domain.ports.shop.TagPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

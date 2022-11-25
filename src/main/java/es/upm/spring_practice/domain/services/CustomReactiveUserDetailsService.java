@@ -1,6 +1,6 @@
 package es.upm.spring_practice.domain.services;
 
-import es.upm.spring_practice.domain.persistence_ports.UserPersistence;
+import es.upm.spring_practice.domain.ports.UserPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;

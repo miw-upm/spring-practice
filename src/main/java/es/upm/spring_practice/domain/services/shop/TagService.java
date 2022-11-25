@@ -3,8 +3,8 @@ package es.upm.spring_practice.domain.services.shop;
 import es.upm.spring_practice.domain.models.shop.Article;
 import es.upm.spring_practice.domain.models.shop.ArticleItem;
 import es.upm.spring_practice.domain.models.shop.Tag;
-import es.upm.spring_practice.domain.persistence_ports.shop.ShoppingCartPersistence;
-import es.upm.spring_practice.domain.persistence_ports.shop.TagPersistence;
+import es.upm.spring_practice.domain.ports.shop.ShoppingCartPersistence;
+import es.upm.spring_practice.domain.ports.shop.TagPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

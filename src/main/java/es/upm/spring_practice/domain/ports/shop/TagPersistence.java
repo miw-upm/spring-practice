@@ -1,4 +1,4 @@
-package es.upm.spring_practice.domain.persistence_ports.shop;
+package es.upm.spring_practice.domain.ports.shop;
 
 import es.upm.spring_practice.domain.models.shop.Tag;
 import org.springframework.stereotype.Repository;

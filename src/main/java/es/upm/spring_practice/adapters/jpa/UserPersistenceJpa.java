@@ -2,7 +2,7 @@ package es.upm.spring_practice.adapters.jpa;
 
 import es.upm.spring_practice.domain.models.Role;
 import es.upm.spring_practice.domain.models.User;
-import es.upm.spring_practice.domain.persistence_ports.UserPersistence;
+import es.upm.spring_practice.domain.ports.UserPersistence;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
