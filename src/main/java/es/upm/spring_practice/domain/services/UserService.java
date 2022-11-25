@@ -7,19 +7,15 @@ import es.upm.spring_practice.domain.models.Role;
 import es.upm.spring_practice.domain.models.User;
 import es.upm.spring_practice.domain.persistence_ports.UserPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 public class UserService {
-
     private final UserPersistence userPersistence;
     private final JwtService jwtService;
 
@@ -29,14 +25,14 @@ public class UserService {
         this.jwtService = jwtService;
     }
 
-
     public Optional<String> login(String mobile) {
         return this.userPersistence.findByMobile(mobile)
                 .map(user -> jwtService.createToken(user.getMobile(), user.getFirstName(), user.getRole().name()));
     }
 
-    public void createUser(User user) {
-        if (!authorizedRoles(this.extractRoleClaims()).contains(user.getRole())) {
+    public void createUser(User user, Role roleClaim) {
+        user.doDefault();
+        if (!authorizedRoles(roleClaim).contains(user.getRole())) {
             throw new ForbiddenException("Insufficient role to create this user: " + user);
         }
         this.assertNoExistByMobile(user.getMobile());
@@ -44,14 +40,8 @@ public class UserService {
         this.userPersistence.create(user);
     }
 
-    private Role extractRoleClaims() {
-        List<String> roleClaims = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        return Role.of(roleClaims.get(0));  // it must only be a role
-    }
-
-    public Stream<User> readAll() {
-        return this.userPersistence.findByRoleIn(authorizedRoles(this.extractRoleClaims()));
+    public Stream<User> readAll(Role roleClaim) {
+        return this.userPersistence.findByRoleIn(authorizedRoles(roleClaim));
     }
 
     private List<Role> authorizedRoles(Role roleClaim) {
@@ -73,9 +63,9 @@ public class UserService {
     }
 
     public Stream<User> findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-            String mobile, String firstName, String familyName, String email, String dni) {
+            String mobile, String firstName, String familyName, String email, String dni, Role roleClaim) {
         return this.userPersistence.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-                mobile, firstName, familyName, email, dni, this.authorizedRoles(this.extractRoleClaims()));
+                mobile, firstName, familyName, email, dni, this.authorizedRoles(roleClaim));
     }
 
     public User readByMobileAssured(String mobile) {

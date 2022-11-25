@@ -7,9 +7,7 @@ import java.util.stream.Stream;
 
 @Repository
 public interface ShoppingCartPersistence {
-
     Stream<ShoppingCart> readAll();
 
     ShoppingCart readById(Integer id);
-
 }

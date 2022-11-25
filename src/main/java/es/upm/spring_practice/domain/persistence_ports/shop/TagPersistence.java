@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 @Repository
 public interface TagPersistence {
-
     Tag readByName(String name);
 
     void delete(String name);

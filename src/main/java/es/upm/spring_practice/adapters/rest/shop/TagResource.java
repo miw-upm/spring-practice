@@ -10,16 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.stream.Stream;
-
 @Rest
 @RequestMapping(TagResource.TAGS)
 public class TagResource {
     static final String TAGS = "/shop/tags";
-
     static final String NAME_ID = "/{name}";
     static final String SEARCH = "/search";
-
     private final TagService tagService;
 
     @Autowired
@@ -40,8 +36,8 @@ public class TagResource {
 
     @GetMapping(SEARCH)
     public Flux<Tag> findByArticlesInShoppingCarts(@RequestParam String q) {
-        if (!"in".equals(new LexicalAnalyzer().extractWithAssure(q, "shopping-carts"))) {
-            throw new BadRequestException("q incorrect, expected in");
+        if (!"".equals(new LexicalAnalyzer().extractWithAssure(q, "articles-in-shopping-carts"))) {
+            throw new BadRequestException("q incorrect, expected 'articles-in-shopping-carts'");
         }
         return Flux.fromStream(this.tagService.findByArticlesInShoppingCarts());
     }

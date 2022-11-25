@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 
 @Service
 public class ArticleService {
-
     private final ArticlePersistence articlePersistence;
 
     @Autowired

@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,7 @@ class ArticleRepositoryIT {
         assertTrue(articles.stream()
                 .map(ArticleEntity::getBarcode)
                 .collect(Collectors.toList())
-                .containsAll(Arrays.asList("84001")));
+                .contains("84001"));
     }
 
 }

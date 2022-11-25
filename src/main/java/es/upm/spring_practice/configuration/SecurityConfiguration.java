@@ -1,15 +1,20 @@
 package es.upm.spring_practice.configuration;
 
+import es.upm.spring_practice.domain.services.CustomReactiveUserDetailsService;
 import es.upm.spring_practice.domain.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
+import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import reactor.core.publisher.Mono;
@@ -26,25 +31,39 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
-                .httpBasic().disable()
-                .formLogin().disable()
                 .csrf().disable()
+                .formLogin().disable()
                 .logout().disable()
-                .addFilterAt(bearerAuthenticationFilter(), SecurityWebFiltersOrder.AUTHENTICATION)
+                .httpBasic().and() // Basic Auth
+                .addFilterAt(this.jwtAuthenticationWebFilter(), SecurityWebFiltersOrder.FIRST)
                 .build();
     }
 
-    private AuthenticationWebFilter bearerAuthenticationFilter() {
+    private AuthenticationWebFilter jwtAuthenticationWebFilter() { // Bearer Auth
         AuthenticationWebFilter bearerAuthenticationFilter =
-                new AuthenticationWebFilter(new JwtAuthenticationManager(jwtService));
+                new AuthenticationWebFilter(new JwtReactiveAuthenticationManager(jwtService));
         bearerAuthenticationFilter.setServerAuthenticationConverter(serverWebExchange -> {
-            String token = jwtService.extractBearerToken(
-                    serverWebExchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION));
-            return Mono.just(new UsernamePasswordAuthenticationToken(token, token));
+            String token = jwtService.extractBearerToken( // x.x.x is not verified
+                    serverWebExchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION)); // "Bearer x.x.x"
+            return Mono.just(new UsernamePasswordAuthenticationToken(token, token)); // it is not authenticated
         });
         return bearerAuthenticationFilter;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() { // Basic Auth
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ReactiveAuthenticationManager reactiveAuthenticationManager(
+            CustomReactiveUserDetailsService customerUserService, PasswordEncoder passwordEncoder) {
+        UserDetailsRepositoryReactiveAuthenticationManager manager =
+                new UserDetailsRepositoryReactiveAuthenticationManager(customerUserService);  // Users
+        manager.setPasswordEncoder(passwordEncoder);  // Encode
+        return manager;
     }
 
 }

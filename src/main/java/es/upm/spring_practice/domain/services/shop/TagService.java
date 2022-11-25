@@ -14,9 +14,7 @@ import java.util.stream.Stream;
 
 @Service
 public class TagService {
-
     private final TagPersistence tagPersistence;
-
     private final ShoppingCartPersistence shoppingCartPersistence;
 
     @Autowired

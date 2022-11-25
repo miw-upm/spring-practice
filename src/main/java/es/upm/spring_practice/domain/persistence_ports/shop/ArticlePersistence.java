@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 @Repository
 public interface ArticlePersistence {
-
     Stream<Article> readAll();
 
     Article create(Article article);

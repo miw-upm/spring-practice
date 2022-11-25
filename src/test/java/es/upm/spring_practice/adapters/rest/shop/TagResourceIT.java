@@ -16,7 +16,7 @@ import static es.upm.spring_practice.adapters.rest.shop.TagResource.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @RestTestConfig
-class TagEntityResourceIT {
+class TagResourceIT {
     @Autowired
     private WebTestClient webTestClient;
     @Autowired
@@ -37,6 +37,15 @@ class TagEntityResourceIT {
                     assertEquals("84002", tagData.getArticles().get(0).getBarcode());
                     assertFalse(tagData.getFavourite());
                 });
+    }
+
+    @Test
+    void testReadUnauthorized() {
+        this.webTestClient
+                .get()
+                .uri(TAGS + NAME_ID, "tag3")
+                .exchange()
+                .expectStatus().isUnauthorized();
     }
 
     @Test
@@ -63,7 +72,7 @@ class TagEntityResourceIT {
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path(TAGS + SEARCH)
-                        .queryParam("q", "shopping-carts:in")
+                        .queryParam("q", "articles-in-shopping-carts")
                         .build())
                 .exchange()
                 .expectStatus().isOk()

@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 
 @Service
 public class ShoppingCartService {
-
     private final ShoppingCartPersistence shoppingCartPersistence;
     private final ArticlePersistence articlePersistence;
 

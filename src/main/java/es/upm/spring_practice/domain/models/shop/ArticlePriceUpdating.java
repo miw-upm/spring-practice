@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArticlePriceUpdating {
-
     private String barcode;
     private BigDecimal price;
 

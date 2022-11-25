@@ -8,7 +8,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @Service
 public class RestClientTestService {
-    private JwtService jwtService;
+    private final JwtService jwtService;
     private String token;
 
     @Autowired
@@ -41,8 +41,8 @@ public class RestClientTestService {
         return this.login(Role.OPERATOR, "666666002", "ope", webTestClient);
     }
 
-    public WebTestClient loginCustomer(WebTestClient webTestClient, String user) {
-        return this.login(Role.CUSTOMER, user, "customer", webTestClient);
+    public WebTestClient loginCustomer(WebTestClient webTestClient) {
+        return this.login(Role.CUSTOMER, "666666003", "c1", webTestClient);
     }
 
     public void logout() {

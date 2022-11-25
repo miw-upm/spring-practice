@@ -40,6 +40,30 @@ class ArticleResourceIT {
     }
 
     @Test
+    void testCreateUnauthorized() {
+        Article article =
+                new Article("666005", "art rest", new BigDecimal("3.00"), null);
+        this.webTestClient
+                .post()
+                .uri(ArticleResource.ARTICLES)
+                .body(BodyInserters.fromValue(article))
+                .exchange()
+                .expectStatus().isUnauthorized();
+    }
+
+    @Test
+    void testCreateCustomerUnauthorized() {
+        Article article =
+                new Article("666005", "art rest", new BigDecimal("3.00"), null);
+        this.restClientTestService.loginCustomer(webTestClient)
+                .post()
+                .uri(ArticleResource.ARTICLES)
+                .body(BodyInserters.fromValue(article))
+                .exchange()
+                .expectStatus().isUnauthorized();
+    }
+
+    @Test
     void testCreateConflict() {
         Article article =
                 new Article("84001", "repeated", new BigDecimal("3.00"), null);
@@ -66,8 +90,9 @@ class ArticleResourceIT {
     }
 
     @Test
-    void testUpdatePricesNotFound() {
+    void testUpdatePricesArticleNotFound() {
         List<ArticlePriceUpdating> articlePriceUpdatingList = List.of(
+                new ArticlePriceUpdating("84001", new BigDecimal("1.23")),
                 new ArticlePriceUpdating("0", BigDecimal.ONE)
         );
         this.restClientTestService.loginAdmin(webTestClient)
@@ -84,7 +109,8 @@ class ArticleResourceIT {
                 .get()
                 .uri(uriBuilder ->
                         uriBuilder.path(ArticleResource.ARTICLES + ArticleResource.SEARCH)
-                                .queryParam("q", "provider:prov 1;price:1.02")
+                                .queryParam("provider", "prov 1")
+                                .queryParam("price", 1.02)
                                 .build())
                 .exchange()
                 .expectStatus().isOk()
@@ -100,7 +126,8 @@ class ArticleResourceIT {
                 .get()
                 .uri(uriBuilder ->
                         uriBuilder.path(ArticleResource.ARTICLES + ArticleResource.SEARCH)
-                                .queryParam("q", "kk:prov 1;price:1.02")
+                                .queryParam("kk", "prov 1")
+                                .queryParam("price", 1.02)
                                 .build())
                 .exchange()
                 .expectStatus().isBadRequest();

@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class LexicalAnalyzer {
-
     private static final String ASSIGNMENT = ":";
     private static final String BOOKMARK = ";";
     private static final int KEY_INDEX = 1;

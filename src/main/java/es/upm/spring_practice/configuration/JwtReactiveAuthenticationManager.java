@@ -7,15 +7,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-public class JwtAuthenticationManager implements ReactiveAuthenticationManager {
-
+public class JwtReactiveAuthenticationManager implements ReactiveAuthenticationManager {
     private final JwtService jwtService;
 
-    public JwtAuthenticationManager(JwtService jwtService) {
+    public JwtReactiveAuthenticationManager(JwtService jwtService) {
         this.jwtService = jwtService;
     }
 
@@ -23,7 +23,7 @@ public class JwtAuthenticationManager implements ReactiveAuthenticationManager {
     public Mono<Authentication> authenticate(Authentication authentication) {
         String token = authentication.getCredentials().toString();
         GrantedAuthority authority = new SimpleGrantedAuthority(Role.PREFIX + jwtService.role(token));
-        return Mono.just(new UsernamePasswordAuthenticationToken(
-                jwtService.user(token), authentication.getCredentials(), List.of(authority)));
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(jwtService.mobile(token), token, List.of(authority)));
+        return Mono.just(new UsernamePasswordAuthenticationToken(jwtService.mobile(token), null, List.of(authority)));
     }
 }

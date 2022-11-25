@@ -1,9 +1,7 @@
 package es.upm.spring_practice.adapters.rest.exceptions_handler;
 
 public class ErrorMessage {
-
     private final String error;
-
     private final String message;
 
     public ErrorMessage(Exception exception) {
