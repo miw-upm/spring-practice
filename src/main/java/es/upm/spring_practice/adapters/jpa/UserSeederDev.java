@@ -3,6 +3,7 @@ package es.upm.spring_practice.adapters.jpa;
 import es.upm.spring_practice.domain.models.Role;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -11,25 +12,26 @@ import java.util.Arrays;
 
 @Repository // @Profile("dev")
 public class UserSeederDev {
-
     private final DatabaseStarting databaseStarting;
     private final UserRepository userRepository;
+    private final String pass;
 
     @Autowired
-    public UserSeederDev(UserRepository userRepository, DatabaseStarting databaseStarting) {
+    public UserSeederDev(@Value("${miw.user.pass}") String pass, UserRepository userRepository,
+                         DatabaseStarting databaseStarting) {
+        this.pass = pass;
         this.userRepository = userRepository;
         this.databaseStarting = databaseStarting;
     }
 
     public void deleteAllAndInitialize() {
         this.userRepository.deleteAll();
-        LogManager.getLogger(this.getClass()).warn("------- Deleted All -----------");
+        LogManager.getLogger(this.getClass()).warn("------- Users deleted All -------");
         this.databaseStarting.initialize();
     }
 
     public void seedDataBase() {
-        LogManager.getLogger(this.getClass()).warn("------- Initial Load from JAVA -----------");
-        String pass = new BCryptPasswordEncoder().encode("6");
+        String pass = new BCryptPasswordEncoder().encode(this.pass);
         UserEntity[] userEntities = {
                 UserEntity.builder().mobile("666666000").firstName("adm").password(pass).dni(null).address("C/TPV, 0")
                         .email("adm@gmail.com").role(Role.ADMIN).registrationDate(LocalDateTime.now()).active(true)
@@ -52,7 +54,7 @@ public class UserSeederDev {
                         .registrationDate(LocalDateTime.now()).active(true).build(),
         };
         this.userRepository.saveAll(Arrays.asList(userEntities));
-        LogManager.getLogger(this.getClass()).warn("        ------- users");
+        LogManager.getLogger(this.getClass()).warn("------- Users Initial Load -------");
     }
 
 }

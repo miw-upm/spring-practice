@@ -33,7 +33,7 @@ public class ShopSeederServiceDev {
     }
 
     public void seedDatabase() {
-        LogManager.getLogger(this.getClass()).warn("------- Shop Initial Load -----------");
+        LogManager.getLogger(this.getClass()).warn("------- Shop Initial Load --------");
         ArticleEntity[] articles = {
                 new ArticleEntity(new Article("84001", "art 001", new BigDecimal("1.23"), "prov 1")),
                 new ArticleEntity(new Article("84002", "art 002", new BigDecimal("0.27"), "prov 2")),
@@ -63,7 +63,7 @@ public class ShopSeederServiceDev {
     }
 
     public void deleteAll() {
-        LogManager.getLogger(this.getClass()).warn("------- Shop delete all-----------");
+        LogManager.getLogger(this.getClass()).warn("------- Shop delete all ----------");
         this.tagRepository.deleteAll();
         this.shoppingCartRepository.deleteAll();
         this.articleRepository.deleteAll();

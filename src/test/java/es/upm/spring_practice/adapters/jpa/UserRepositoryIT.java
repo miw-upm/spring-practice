@@ -30,7 +30,7 @@ class UserRepositoryIT {
     @Test
     void testFindByMobileAndFirstNameAndFamilyNameAndEmailAndDniNullSafeWithMobile() {
         assertTrue(this.userRepository.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-                "1", null, null, ".com", null, List.of(MANAGER)).stream()
+                        "1", null, null, ".com", null, List.of(MANAGER)).stream()
                 .anyMatch(user -> "666666001".equals(user.getMobile()))
         );
     }
