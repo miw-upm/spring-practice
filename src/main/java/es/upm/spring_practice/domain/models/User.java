@@ -43,8 +43,8 @@ public class User {
         this.password = "secret";
     }
 
-    public static User ofMobileFirstName(User user) {
-        return User.builder().mobile(user.getMobile()).firstName(user.getFirstName()).build();
+    public User ofMobileFirstName() {
+        return User.builder().mobile(this.mobile).firstName(this.firstName).build();
     }
 
     public void doDefault() {
@@ -59,11 +59,4 @@ public class User {
         }
     }
 
-    public User toUser() {
-        this.doDefault();
-        User user = new User();
-        BeanUtils.copyProperties(this, user);
-        user.setPassword(new BCryptPasswordEncoder().encode(this.password));
-        return user;
-    }
 }

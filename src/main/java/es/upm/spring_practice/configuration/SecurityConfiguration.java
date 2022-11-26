@@ -47,7 +47,7 @@ public class SecurityConfiguration {
         bearerAuthenticationFilter.setServerAuthenticationConverter(serverWebExchange -> {
             String token = jwtService.extractBearerToken( // x.x.x is not verified
                     serverWebExchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION)); // "Bearer x.x.x"
-            return Mono.just(new UsernamePasswordAuthenticationToken(token, token)); // it is not authenticated
+            return Mono.just(new UsernamePasswordAuthenticationToken(null, token)); // it is not authenticated
         });
         return bearerAuthenticationFilter;
     }
@@ -58,8 +58,8 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public ReactiveAuthenticationManager reactiveAuthenticationManager(
-            CustomReactiveUserDetailsService customerUserService, PasswordEncoder passwordEncoder) {
+    public ReactiveAuthenticationManager reactiveAuthenticationManager(                      // Basic Auth
+                                                                                             CustomReactiveUserDetailsService customerUserService, PasswordEncoder passwordEncoder) {
         UserDetailsRepositoryReactiveAuthenticationManager manager =
                 new UserDetailsRepositoryReactiveAuthenticationManager(customerUserService);  // Users
         manager.setPasswordEncoder(passwordEncoder);  // Encode

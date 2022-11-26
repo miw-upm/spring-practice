@@ -21,11 +21,10 @@ public class ShoppingCart {
     private String user;
     private String address;
 
-    public static ShoppingCart ofIdUser(ShoppingCart shoppingCart) {
+    public ShoppingCart ofIdUser() {
         ShoppingCart shoppingCartDto = new ShoppingCart();
-        shoppingCartDto.setId(shoppingCart.getId());
-        shoppingCartDto.setUser(shoppingCart.getUser());
+        shoppingCartDto.setId(this.id);
+        shoppingCartDto.setUser(this.user);
         return shoppingCartDto;
     }
-
 }

@@ -15,8 +15,8 @@ import java.util.Objects;
 
 @Data
 @NoArgsConstructor
-@Builder
 @AllArgsConstructor
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Article {
     @NotBlank
@@ -36,9 +36,9 @@ public class Article {
         this.provider = provider;
     }
 
-    public static Article ofBarcode(Article article) {
+    public Article ofBarcode() {
         Article articleDto = new Article();
-        articleDto.setBarcode(article.getBarcode());
+        articleDto.setBarcode(this.barcode);
         return articleDto;
     }
 
@@ -47,5 +47,4 @@ public class Article {
             this.provider = "various";
         }
     }
-
 }

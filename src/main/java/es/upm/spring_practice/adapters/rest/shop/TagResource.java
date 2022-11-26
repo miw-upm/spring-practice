@@ -25,7 +25,7 @@ public class TagResource {
 
     @GetMapping(NAME_ID)
     public Mono<Tag> read(@PathVariable String name) {
-        return Mono.just(Tag.ofArticleBarcode(this.tagService.read(name)));
+        return Mono.just(this.tagService.read(name).ofArticleBarcode());
     }
 
     @DeleteMapping(NAME_ID)

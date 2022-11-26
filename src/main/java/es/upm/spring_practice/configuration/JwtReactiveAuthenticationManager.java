@@ -23,7 +23,8 @@ public class JwtReactiveAuthenticationManager implements ReactiveAuthenticationM
     public Mono<Authentication> authenticate(Authentication authentication) {
         String token = authentication.getCredentials().toString();
         GrantedAuthority authority = new SimpleGrantedAuthority(Role.PREFIX + jwtService.role(token));
-        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(jwtService.mobile(token), token, List.of(authority)));
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(jwtService.mobile(token), token, List.of(authority)));
         return Mono.just(new UsernamePasswordAuthenticationToken(jwtService.mobile(token), null, List.of(authority)));
     }
 }

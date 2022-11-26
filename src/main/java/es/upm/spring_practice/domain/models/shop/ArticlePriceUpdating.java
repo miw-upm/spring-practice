@@ -12,5 +12,4 @@ import java.math.BigDecimal;
 public class ArticlePriceUpdating {
     private String barcode;
     private BigDecimal price;
-
 }

@@ -70,48 +70,51 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
+        <!-- Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <!-- Validation -->
+        <!-- Security: JWT -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+        <!-- Validation: @Valid -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <!-- Actuator -->
-        <!-- http://localhost:8080/actuator/info -->
+        <!-- http://localhost:8080/actuator/info   -->
         <!-- http://localhost:8080/actuator/health -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!-- OpenAPI http://localhost:8080/swagger-ui.html-->
+        <!-- OpenAPI -->
+        <!-- http://localhost:8080/swagger-ui.html -->
+        <!-- http://localhost:8080/v3/api-do       -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-webflux-ui</artifactId>
             <version>${springdoc-openapi-webflux-ui.version}</version>
+        </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
         <!-- Database JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <!-- Database external
+        <!-- Database external: PRODUCTION -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-        </dependency> -->
-        <!-- JWT -->
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>${jwt.version}</version>
-        </dependency>
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
         </dependency>
         <!-- ================ TEST ================== -->
         <!-- Spring Test -->
@@ -135,16 +138,16 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         <!--  <scope>test</scope> -->
-     </dependency>
-     <!-- Asynchronous Programming Test-->
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
+            <!-- mvn spring-boot:run -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!-- Test: coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -165,6 +168,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Test: unit & integration -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -177,6 +181,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!-- Test: unit & integration -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
