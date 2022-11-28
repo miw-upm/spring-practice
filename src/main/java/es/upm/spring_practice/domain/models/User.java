@@ -38,11 +38,6 @@ public class User {
     private Boolean active;
     private LocalDateTime registrationDate;
 
-    public User(User user) {
-        BeanUtils.copyProperties(user, this);
-        this.password = "secret";
-    }
-
     public User ofMobileFirstName() {
         return User.builder().mobile(this.mobile).firstName(this.firstName).build();
     }

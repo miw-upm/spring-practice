@@ -69,7 +69,6 @@ public class ApiExceptionHandler {
     })
     @ResponseBody
     public ErrorMessage exception(Exception exception) {
-        exception.printStackTrace();
         return new ErrorMessage(exception);
     }
 

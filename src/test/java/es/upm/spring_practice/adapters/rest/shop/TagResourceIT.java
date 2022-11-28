@@ -88,12 +88,24 @@ class TagResourceIT {
     }
 
     @Test
-    void testFindByArticlesInShoppingCartsBadRequest() {
+    void testFindByArticlesInShoppingCartsBadParamBadRequest() {
         this.restClientTestService.loginAdmin(webTestClient)
                 .get()
                 .uri(uriBuilder ->
                         uriBuilder.path(TAGS + SEARCH)
-                                .queryParam("q", "shopping-carts:kk")
+                                .queryParam("q", "kk")
+                                .build())
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
+
+    @Test
+    void testFindByArticlesInShoppingCartsBadParamValueBadRequest() {
+        this.restClientTestService.loginAdmin(webTestClient)
+                .get()
+                .uri(uriBuilder ->
+                        uriBuilder.path(TAGS + SEARCH)
+                                .queryParam("q", "articles-in-shopping-carts:kk")
                                 .build())
                 .exchange()
                 .expectStatus().isBadRequest();

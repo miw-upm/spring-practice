@@ -43,7 +43,7 @@ public class UserResource {
     private Role extractRole(UsernamePasswordAuthenticationToken principal) {
         return principal.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .map(role -> Role.of(role))
+                .map(Role::of)
                 .findFirst().orElse(null);
     }
 

@@ -64,10 +64,17 @@ class UserResourceIT {
     }
 
     @Test
+    void testCreateUserWithManager() {
+        this.restClientTestService.loginManager(this.webTestClient)
+                .post().uri(USERS)
+                .body(Mono.just(User.builder().mobile("666000667").firstName("daemon").build()), User.class)
+                .exchange().expectStatus().isOk();
+    }
+    @Test
     void testCreateUserWithOperator() {
         this.restClientTestService.loginOperator(this.webTestClient)
                 .post().uri(USERS)
-                .body(Mono.just(User.builder().mobile("666000667").firstName("daemon").build()), User.class)
+                .body(Mono.just(User.builder().mobile("666000668").firstName("daemon").build()), User.class)
                 .exchange().expectStatus().isOk();
     }
 
@@ -116,7 +123,7 @@ class UserResourceIT {
     }
 
     @Test
-    void testCreateUserBadNumberBAdRequest() {
+    void testCreateUserBadNumberBadRequest() {
         this.restClientTestService.loginOperator(this.webTestClient)
                 .post().uri(USERS)
                 .body(Mono.just(User.builder().mobile("666").firstName("kk").build()), User.class)
@@ -133,6 +140,16 @@ class UserResourceIT {
                 .expectStatus().isBadRequest();
     }
 
+    @Test
+    void testReadAllManager() {
+        this.restClientTestService.loginManager(this.webTestClient)
+                .get().uri(USERS)
+                .exchange().expectStatus().isOk()
+                .expectBodyList(User.class)
+                .value(users -> assertTrue(users.stream().noneMatch(user -> "admin".equals(user.getFirstName()))))
+                .value(users -> assertTrue(users.stream().noneMatch(
+                        user -> "man".equals(user.getFirstName())&&!"666666001".equals(user.getMobile()))));
+    }
     @Test
     void testReadAllOperator() {
         this.restClientTestService.loginOperator(this.webTestClient)

@@ -133,11 +133,10 @@
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
         </dependency>
-        <!-- Database embedded -->
+        <!-- Database embedded test & dev-->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-        <!--  <scope>test</scope> -->
         </dependency>
     </dependencies>
     <build>
